@@ -1,0 +1,22 @@
+test-database:
+  db_name: "testdb"
+  db_subnet_group_name: dev_back
+  db_username: "testuser"
+  db_password: "testpassword"
+  availability_zone: eu-north-1a
+  engine: postgres
+  engine_version: 13.3
+  instance_class: db.t3.small
+  allocated_storage: 100
+  max_allocated_storage: 500
+  storage_type: gp2
+  backup_retention_period: 7
+  backup_window: "02:04-02:34"
+  performance_insights_enabled: true
+  monitoring_interval: 0
+  skip_final_snapshot: false
+  final_snapshot_identifier: "testdb"
+  enabled_cloudwatch_logs_exports:
+    - postgresql
+  db_security_groups:
+    - test_database_rds

@@ -1,0 +1,39 @@
+---
+control_plane:
+  cluster_version: "1.21"
+  cluster_endpoint_public_access_cidrs:
+    - "190.96.121.98/32"
+  map_users:
+    - userarn: arn:aws:iam::015494230:user/testuser
+      username: rechaide
+      groups:
+        - system:masters
+
+node_groups_defaults:
+  desired_capacity: 1
+  min_capacity: 1
+  k8s_labels:
+    network-type: backend
+  create_launch_template: true
+  key_name: ${environment}-eks
+  update_config:
+    max_unavailable_percentage: 25
+
+node_groups:
+  cpu-xlarge:
+    name_prefix: ${environment}-cpu-xlarge
+    max_capacity: 100
+    instance_types:
+      - m5d.xlarge
+    asg_tags:
+      - key: k8s.io/cluster-autoscaler/node-template/label/network-type
+        value: back
+
+  cpu-2xlarge:
+    name_prefix: ${environment}-cpu-2xlarge
+    max_capacity: 100
+    instance_types:
+      - m5d.2xlarge
+    asg_tags:
+      - key: k8s.io/cluster-autoscaler/node-template/label/network-type
+        value: back

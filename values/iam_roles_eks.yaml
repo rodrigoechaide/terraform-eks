@@ -1,0 +1,26 @@
+eks-cluster-autoscaler:
+  trust_relationship:
+    actions:
+      - sts:AssumeRoleWithWebIdentity
+    principals:
+      Federated:
+        - eks_oidc
+    service_accounts:
+      - name: cluster-autoscaler
+        namespace: kube-system
+  policy_attachment:
+    - eks-cluster-autoscaler
+#----------------------------------------------------------------
+eks-aws-load-balancer-controller:
+  trust_relationship:
+    actions:
+      - sts:AssumeRoleWithWebIdentity
+    principals:
+      Federated:
+        - eks_oidc
+    service_accounts:
+      - name: aws-load-balancer-controller
+        namespace: ingress-controllers
+  policy_attachment:
+    - eks-alb-load-balancer-controller
+#----------------------------------------------------------------
